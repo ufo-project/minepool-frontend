@@ -238,8 +238,8 @@ export default {
   margin: 0 auto;
   background-color: #ffffff;
   position: relative;
-  height: 100%;
-  padding: 50px 20px;
+  height: auto;
+  padding: 50px 20px 100px;
 }
 .search {
   width: 60%;
