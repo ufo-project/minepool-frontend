@@ -37,7 +37,8 @@ module.exports = {
     invalidshares: 'Invalid Shares',
     totalrewards: 'Total Rewards',
     sentrewards: 'Sent Rewards',
-    powerreward: 'Last 24 Hours Power&Rewards',
+    powerline: 'Last 24 Hours Power',
+    rewardline: 'Last 24 Hours Rewards',
     power: 'Power',
     reward: 'Rewards'
   }

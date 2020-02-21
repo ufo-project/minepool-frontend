@@ -20,6 +20,9 @@
       <div class="line">
        <div id="lineCharts" ref="lineCharts"></div>
     </div>
+    <div class="line">
+       <div id="lineCharts2" ref="lineCharts2"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -45,11 +48,18 @@ export default {
         let lineCharts = this.$echarts.init(document.getElementById('lineCharts'))
         let newLineOption = lineCharts.getOption()
         if (newLineOption !== undefined) {
-          newLineOption.title = {text: this.$t('workers.powerreward')}
-          newLineOption.legend = {data: [this.$t('workers.power'), this.$t('workers.reward')]}
+          newLineOption.title = {text: this.$t('workers.powerline')}
+          newLineOption.legend = {data: [this.$t('workers.power')]}
           newLineOption.series[0].name = this.$t('workers.power')
-          newLineOption.series[1].name = this.$t('workers.reward')
           lineCharts.setOption(newLineOption)
+        }
+        let lineCharts2 = this.$echarts.init(document.getElementById('lineCharts2'))
+        let newLineOption2 = lineCharts2.getOption()
+        if (newLineOption2 !== undefined) {
+          newLineOption2.title = {text: this.$t('workers.rewardline')}
+          newLineOption2.legend = {data: [this.$t('workers.reward')]}
+          newLineOption2.series[1].name = this.$t('workers.reward')
+          lineCharts2.setOption(newLineOption2)
         }
       },
       deep: true
@@ -91,9 +101,10 @@ export default {
         })
         that.$nextTick(_ => {
           const lineCharts = that.$echarts.init(document.getElementById('lineCharts'))
+          const lineCharts2 = that.$echarts.init(document.getElementById('lineCharts2'))
           let lineOptions = {
             title: {
-              text: that.$t('workers.powerreward'),
+              text: that.$t('workers.powerline'),
               left: '4%'
             },
             tooltip: {
@@ -103,7 +114,7 @@ export default {
               }
             },
             legend: {
-              data: [that.$t('workers.power'), that.$t('workers.reward')],
+              data: [that.$t('workers.power')],
               textStyle: {
                 fontSize: 16
               }
@@ -132,7 +143,50 @@ export default {
                 formatter: '{value}',
                 fontSize: 18
               }
-            }, {
+            }],
+            series: [
+              {
+                name: that.$t('workers.power'),
+                type: 'line',
+                data: slData
+              }
+            ]
+          }
+          let lineOptions2 = {
+            title: {
+              text: that.$t('workers.rewardline'),
+              left: '4%'
+            },
+            tooltip: {
+              trigger: 'axis',
+              textStyle: {
+                align: 'left'
+              }
+            },
+            legend: {
+              data: [that.$t('workers.reward')],
+              textStyle: {
+                fontSize: 16
+              }
+            },
+            xAxis: [{
+              type: 'category',
+              boundaryGap: false,
+              axisLabel: {
+                fontSize: 14,
+                interval: 0,
+                rotate: 60,
+                margin: 30,
+                textStyle: {
+                  align: 'center'
+                },
+                axisTick: {
+                  alignWithLabel: true
+                }
+              },
+              data: xAxisData
+            }],
+            yAxis: [{
               name: 'UFO',
               type: 'value',
               axisLabel: {
@@ -142,11 +196,6 @@ export default {
             }],
             series: [
               {
-                name: that.$t('workers.power'),
-                type: 'line',
-                data: slData
-              },
-              {
                 name: that.$t('workers.reward'),
                 type: 'line',
                 data: syData
@@ -154,6 +203,7 @@ export default {
             ]
           }
           lineCharts.setOption(lineOptions)
+          lineCharts2.setOption(lineOptions2)
         })
       }, function (err) {
         that.$message.error({showClose: true, message: err.toString(), duration: 2000})
@@ -206,6 +256,10 @@ export default {
   text-align: left;
 }
 #lineCharts {
+  width: 100%;
+  height: 400px;
+}
+#lineCharts2 {
   width: 100%;
   height: 400px;
 }
