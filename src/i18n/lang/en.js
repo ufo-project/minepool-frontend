@@ -1,6 +1,6 @@
 module.exports = {
   home: {
-    homepage: 'HomePage',
+    homepage: 'PoolHome',
     language: 'Language',
     workers: 'Worker',
     download: 'Download',

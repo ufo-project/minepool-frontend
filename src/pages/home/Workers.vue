@@ -187,6 +187,8 @@ export default {
   width: 1200px;
   margin: 0 auto;
   background-color: #ffffff;
+  position: relative;
+  height: 100%;
   padding: 50px 20px;
 }
 .search {

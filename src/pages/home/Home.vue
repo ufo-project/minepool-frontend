@@ -344,7 +344,7 @@ export default {
   padding: 50px 20px;
 }
 .home-top {
-  font-size: 20px;
+  font-size: 16px;
 }
 .el-col {
   line-height: 50px;
