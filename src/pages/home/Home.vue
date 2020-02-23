@@ -232,9 +232,9 @@ export default {
       let that = this
       homeApi.getPie().then(function (result) {
         let arr = that.sortByValue(result, 'value')
-        if (result.length && result.length > 10) {
-          arr = result.slice(0, 9)
-          let list = result.slice(9, result.length)
+        if (result.length && result.length > 20) {
+          arr = result.slice(0, 19)
+          let list = result.slice(19, result.length)
           let obj = {name: 'Others', value: '0'}
           list.forEach(i => {
             obj.value = that.accAdd(i.value, obj.value)
