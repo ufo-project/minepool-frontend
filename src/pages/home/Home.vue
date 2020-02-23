@@ -231,7 +231,19 @@ export default {
     getPie () {
       let that = this
       homeApi.getPie().then(function (result) {
-        result.forEach(i => {
+        let arr = that.sortByValue(result, 'value')
+        if (result.length && result.length > 10) {
+          arr = result.slice(0, 9)
+          let list = result.slice(9, result.length)
+          let obj = {name: 'Others', value: '0'}
+          list.forEach(i => {
+            obj.value = that.accAdd(i.value, obj.value)
+          })
+          arr.push(obj)
+        } else {
+          arr = result
+        }
+        arr.forEach(i => {
           i.value = (i.value / 100000000).toFixed(8)
         })
         that.$nextTick(_ => {
@@ -251,7 +263,7 @@ export default {
                 width: 600,
                 height: 600,
                 left: 300,
-                data: result,
+                data: arr,
                 label: {
                   normal: {
                     formatter: '{b}: {d}%',
@@ -317,10 +329,46 @@ export default {
         return ((x < y) ? -1 : ((x > y) ? 1 : 0))
       })
     },
+    sortByValue (array, key) {
+      return array.sort(function (a, b) {
+        var x = a[key]
+        var y = b[key]
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+      })
+    },
     timestampToTime (time) {
       var date = new Date(time * 1000)
       var h = date.getHours()
       return h
+    },
+    accAdd (arg1, arg2) {
+      var r1, r2, m, c
+      try {
+        r1 = arg1.toString().split('.')[1].length
+      } catch (e) {
+        r1 = 0
+      }
+      try {
+        r2 = arg2.toString().split('.')[1].length
+      } catch (e) {
+        r2 = 0
+      }
+      c = Math.abs(r1 - r2)
+      m = Math.pow(10, Math.max(r1, r2))
+      if (c > 0) {
+        var cm = Math.pow(10, c)
+        if (r1 > r2) {
+          arg1 = Number(arg1.toString().replace('.', ''))
+          arg2 = Number(arg2.toString().replace('.', '')) * cm
+        } else {
+          arg1 = Number(arg1.toString().replace('.', '')) * cm
+          arg2 = Number(arg2.toString().replace('.', ''))
+        }
+      } else {
+        arg1 = Number(arg1.toString().replace('.', ''))
+        arg2 = Number(arg2.toString().replace('.', ''))
+      }
+      return (arg1 + arg2) / m
     }
   },
   beforeDestroy () {
