@@ -3,7 +3,7 @@
       <div class="web-home-top">
       <header class="site-header">
     <div class="header-content">
-    <div class="header-logo"><a href="/"><img src="/static/img/h-logo.svg" alt="UFO"></a><span>UFO POOL</span></div>
+    <div class="header-logo"><a href="http://ufo.link/"><img src="/static/img/h-logo.svg" alt="UFO"></a><span>UFO POOL</span></div>
     <ul class="header-nav">
       <li><router-link to="/home">{{$t("home.homepage")}}</router-link></li>
       <li><router-link to="/workers">{{$t("home.workers")}}</router-link></li>
