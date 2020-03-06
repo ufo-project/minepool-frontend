@@ -3,13 +3,18 @@
     <div class="home-top">
       <el-row type="flex" justify="space-around">
         <el-col :span="6">{{$t("home.totalpower")}}：{{target.totalpower}}</el-col>
-        <el-col :span="6">{{$t("home.totalusers")}}：{{target.totalusers}}</el-col>
         <el-col :span="6">{{$t("home.totalworkers")}}：{{target.totalworkers}}</el-col>
+        <el-col :span="6">{{$t("home.feerate")}}：5%</el-col>
       </el-row>
       <el-row type="flex" justify="space-around">
         <el-col :span="6">{{$t("home.currheight")}}：{{target.currentheight}}</el-col>
         <el-col :span="6">{{$t("home.currdiff")}}：{{target.currentdiff}}</el-col>
         <el-col :span="6">{{$t("home.totalrewards")}}：{{target.totalrewards}} UFO</el-col>
+      </el-row>
+      <el-row type="flex" justify="space-around">
+        <el-col :span="6">{{$t("home.totalpoolpower")}}：{{target.totalpoolpower}}</el-col>
+        <el-col :span="6">{{$t("home.minsent")}}：1 UFO</el-col>
+        <el-col :span="6">{{$t("home.totalsentrewards")}}：{{target.totalsentrewards}} UFO</el-col>
       </el-row>
     </div>
     <div class="list">
@@ -158,7 +163,7 @@ export default {
               data: xAxisData
             }],
             yAxis: [{
-              name: 'Msh/s',
+              name: 'MHash/s',
               type: 'value',
               axisLabel: {
                 formatter: '{value}',
