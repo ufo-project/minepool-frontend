@@ -24,13 +24,14 @@
         <el-table-column prop="miner" :label="$t('home.blockminer')" width="120">
         </el-table-column>
         <el-table-column prop="blockreward" :label="$t('home.blockreward')" width="180"></el-table-column>
-        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="150">
+        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="180">
           <template slot-scope="scope">
             <span v-if="scope.row.blocktime<60">
               &lt;1Minute
             </span>
             <span v-else>
-              <span v-if="scope.row.hour">{{scope.row.hour}}{{$t("home.hour")}}</span> {{scope.row.minute}}{{$t("home.beforem")}}
+              <!-- <span v-if="scope.row.hour">{{scope.row.hour}}{{$t("home.hour")}}</span> {{scope.row.minute}}{{$t("home.beforem")}} -->
+              <span v-if="scope.row.day">{{scope.row.day}}{{$t("home.day")}} {{scope.row.hour}}{{$t("home.hour")}}</span> {{scope.row.minute}}{{$t("home.beforem")}}
             </span>
           </template>
         </el-table-column>
@@ -312,6 +313,7 @@ export default {
       let theTime = parseInt(row.blocktime)
       let theTime1 = 0
       let theTime2 = 0
+      let theTime3 = 0
       if (theTime >= 60) {
         theTime1 = parseInt(theTime / 60)
         theTime = parseInt(theTime % 60)
@@ -319,12 +321,14 @@ export default {
           theTime2 = parseInt(theTime1 / 60)
           theTime1 = parseInt(theTime1 % 60)
           if (theTime2 > 24) {
+            theTime3 = parseInt(theTime2 / 24)
             theTime2 = parseInt(theTime2 % 24)
           }
         }
       }
       that.$set(row, 'minute', parseInt(theTime1))
       that.$set(row, 'hour', parseInt(theTime2))
+      that.$set(row, 'day', parseInt(theTime3))
       return row
     },
     sortByKey (array, key) {

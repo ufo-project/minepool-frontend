@@ -24,6 +24,7 @@ module.exports = {
     blocktime: 'Block  Time',
     blockhash: 'Block  Hash',
     blockminer: 'Block  Miner',
+    day: 'Day',
     hour: 'Hour',
     beforem: 'MinAgo',
     summaryPower: '24 Hours Power',
