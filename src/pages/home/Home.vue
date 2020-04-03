@@ -1,30 +1,75 @@
 <template>
   <div class="home">
+    <div>
+      <ul>
+        <el-row>
+        <span class="home-title">UFO Pool</span>
+        <el-button type="primary" round><router-link to="/home" class="home-homepage">{{$t("home.homepage")}}</router-link></el-button>
+        <el-button round><router-link to="/workers" class="home-workers">{{$t("home.workers")}}</router-link></el-button>
+        <el-button round><router-link to="/guide" class="home-userguide">{{$t("home.userguide")}}</router-link></el-button>
+        </el-row>
+      </ul>
+    </div>
     <div class="home-top">
       <el-row type="flex" justify="space-around">
-        <el-col :span="6">{{$t("home.totalpower")}}：{{target.totalpower}}</el-col>
-        <el-col :span="6">{{$t("home.totalworkers")}}：{{target.totalworkers}}</el-col>
-        <el-col :span="6">{{$t("home.feerate")}}：5%</el-col>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.totalpower")}}</div>
+          <div class="top-value">{{target.totalpower}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.totalworkers")}}</div>
+          <div class="top-value">{{target.totalworkers}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.feerate")}}</div>
+          <div class="top-value">5%</div>
+        </el-col>
       </el-row>
+      <hr class = "horizontal-line"/>
       <el-row type="flex" justify="space-around">
-        <el-col :span="6">{{$t("home.currheight")}}：{{target.currentheight}}</el-col>
-        <el-col :span="6">{{$t("home.currdiff")}}：{{target.currentdiff}}</el-col>
-        <el-col :span="6">{{$t("home.totalrewards")}}：{{target.totalrewards}} UFO</el-col>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.currheight")}}</div>
+          <div class="top-value">{{target.currentheight}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.currdiff")}}</div>
+          <div class="top-value">{{target.currentdiff}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.totalrewards")}}</div>
+          <div class="top-value">{{target.totalrewards}} UFO</div>
+        </el-col>
       </el-row>
+      <hr class = "horizontal-line"/>
       <el-row type="flex" justify="space-around">
-        <el-col :span="6">{{$t("home.totalpoolpower")}}：{{target.totalpoolpower}}</el-col>
-        <el-col :span="6">{{$t("home.minsent")}}：1 UFO</el-col>
-        <el-col :span="6">{{$t("home.totalsentrewards")}}：{{target.totalsentrewards}} UFO</el-col>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.totalpoolpower")}}</div>
+          <div class="top-value">{{target.totalpoolpower}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.minsent")}}</div>
+          <div class="top-value">1 UFO</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("home.totalsentrewards")}}</div>
+          <div class="top-value">{{target.totalsentrewards}} UFO</div>
+        </el-col>
       </el-row>
     </div>
     <div class="list">
       <div class="title">{{$t("home.latestblocks")}}</div>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="blockheight" :label="$t('home.blockheight')" width="100"></el-table-column>
-        <el-table-column prop="miner" :label="$t('home.blockminer')" width="120">
+      <el-table :data="tableData" :cell-style="tableStyle" :header-cell-style="tableHeaderStyle" style="width: 100%">
+        <el-table-column prop="blockheight" :label="$t('home.blockheight')" width="160" ></el-table-column>
+        <el-table-column prop="miner" :label="$t('home.blockminer')" width="160">
         </el-table-column>
-        <el-table-column prop="blockreward" :label="$t('home.blockreward')" width="180"></el-table-column>
-        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="180">
+        <el-table-column prop="blockreward" :label="$t('home.blockreward')" width="160"></el-table-column>
+        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="160">
           <template slot-scope="scope">
             <span v-if="scope.row.blocktime<60">
               &lt;1Minute
@@ -61,7 +106,8 @@ export default {
         totalworkers: 0,
         currentheight: 0,
         currentdiff: 0,
-        totalrewards: 0
+        totalrewards: 0,
+        totalpoolpower: 0
       },
       intervalList: null,
       intervalTarget: null,
@@ -101,6 +147,12 @@ export default {
     }
   },
   methods: {
+    tableHeaderStyle ({row}) {
+      return 'font-size:16px;font-weight:300;font-family: "Calibri Light";color:rgba(119,131,143,1)'
+    },
+    tableStyle ({row}) {
+      return 'font-size:16px;font-weight:400;font-family: "Calibri";color:rgba(30,32,34,1)'
+    },
     jishiFn () {
       let that = this
       this.intervalList = setInterval(that.getList, 60000)
@@ -136,7 +188,12 @@ export default {
           const lineCharts2 = that.$echarts.init(document.getElementById('lineCharts2'))
           let lineOptions = {
             title: {
-              text: that.$t('home.summaryPower')
+              text: that.$t('home.summaryPower'),
+              textStyle: {
+                fontSize: 24,
+                fontWeight: 600,
+                fontFamily: 'Calibri'
+              }
             },
             tooltip: {
               trigger: 'axis',
@@ -152,7 +209,7 @@ export default {
             legend: {
               data: [that.$t('home.power')],
               textStyle: {
-                fontSize: 16
+                fontSize: 18
               }
             },
             xAxis: [{
@@ -181,7 +238,12 @@ export default {
           }
           let lineOptions2 = {
             title: {
-              text: that.$t('home.summaryDiff')
+              text: that.$t('home.summaryDiff'),
+              textStyle: {
+                fontSize: 24,
+                fontWeight: 600,
+                fontFamily: 'Calibri'
+              }
             },
             tooltip: {
               trigger: 'axis',
@@ -256,7 +318,12 @@ export default {
           const pieCharts = that.$echarts.init(document.getElementById('pieCharts'))
           let pieOptin = {
             title: {
-              text: '24 Hours Rewards'
+              text: '24 Hours Rewards',
+              textStyle: {
+                fontSize: 24,
+                fontWeight: 600,
+                fontFamily: 'Calibri'
+              }
             },
             tooltip: {
               trigger: 'item',
@@ -397,36 +464,101 @@ export default {
 .home {
   width: 1200px;
   margin: 0 auto;
-  background-color: #ffffff;
-  padding: 50px 20px;
+  background-color: rgba(248,249,250,1);
+  padding: 10px 20px;
+}
+.home-title {
+  width:68%;
+  text-align:left;
+  font-size:30px;
+  font-weight:600;
+  font-family: "Calibri";
+  color:rgba(30,32,34,1);
+  line-height:25px;
+  float:left;
+  margin-bottom: 60px
+}
+.home-homepage {
+  text-decoration: none;
+}
+.home-workers {
+  text-decoration: none;
+}
+.home-userguide {
+  text-decoration: none;
 }
 .home-top {
-  font-size: 16px;
+  padding-top: 5px;
+  width:1200px;
+  height:280px;
+  background:rgba(255,255,255,1);
+  border-radius:4px;
+  border:1px solid rgba(231,234,243,1);
+}
+.vertical-line {
+  float:left;
+  margin-top: 5px;
+  width: 1px;
+  height: 70px;
+  background: rgba(231,234,243,1);
+}
+.horizontal-line {
+  height:1px;
+  border:none;
+  background: rgba(231,234,243,1);
+}
+.top-label {
+  font-size:16px;
+  font-weight:300;
+  font-family: "Calibri Light";
+  color:rgba(119,131,143,1);
+}
+.top-value {
+  font-size:20px;
+  font-weight:600;
+  font-family: "Calibri";
+  color:rgba(30,32,34,1);
+}
+.list-title {
+  font-size:16px;
+  font-weight:300;
+  font-family: "Calibri Light";
+  color:rgba(119,131,143,1);
 }
 .el-col {
-  line-height: 50px;
+  padding-top: 15px;
+  line-height: 25px;
   text-align: left;
 }
 .list, .line {
   margin-top: 50px;
+  border:1px solid rgba(231,234,243,1);
 }
 .title {
   text-align: left;
   line-height: 50px;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight:600;
+  font-family: "Calibri";
   padding-left: 20px;
-  background-color: #eeeeee;
+  border-bottom:1px solid rgba(231,234,243,1);
+  background-color: #ffffff;
 }
 #lineCharts {
   width: 100%;
   height: 400px;
+  background-color: #ffffff;
 }
 #lineCharts2{
   width: 100%;
   height: 400px;
+  background-color: #ffffff;
 }
 #pieCharts {
+  margin-top: 50px;
   width: 100%;
   height: 600px;
+  border:1px solid rgba(231,234,243,1);
+  background-color: #ffffff;
 }
 </style>

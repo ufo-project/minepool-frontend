@@ -1,20 +1,53 @@
 <template>
   <div class="workers">
+    <div>
+      <ul>
+        <el-row>
+        <span class="workers-title">UFO Pool</span>
+        <el-button round><router-link to="/home" class="workers-homepage">{{$t("home.homepage")}}</router-link></el-button>
+        <el-button type="primary" round><router-link to="/workers" class="workers-workers">{{$t("home.workers")}}</router-link></el-button>
+        <el-button round><router-link to="/guide" class="workers-userguide">{{$t("home.userguide")}}</router-link></el-button>
+        </el-row>
+      </ul>
+    </div>
     <div class="search">
       <el-input :placeholder="$t('workers.input')" v-model="value" class="input-with-select">
-        <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
+        <el-button class="button-select" slot="append" icon="el-icon-search" @click="search()"></el-button>
       </el-input>
     </div>
     <div class="workers-top">
       <el-row type="flex" justify="space-around">
-        <el-col :span="6">{{$t("workers.onlineworkers")}}：{{target.workercount}}</el-col>
-        <el-col :span="6">{{$t("workers.validshares")}}：{{target.validshares}}</el-col>
-        <el-col :span="6">{{$t("workers.totalrewards")}}：{{target.totalrewards}} UFO</el-col>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.onlineworkers")}}</div>
+          <div class="top-value">{{target.workercount}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.validshares")}}</div>
+          <div class="top-value">{{target.validshares}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.totalrewards")}}</div>
+          <div class="top-value">{{target.totalrewards}} UFO</div>
+        </el-col>
       </el-row>
+      <hr class = "horizontal-line"/>
       <el-row type="flex" justify="space-around">
-        <el-col :span="6">{{$t("workers.avgpower")}}：{{target.avgpower}}</el-col>
-        <el-col :span="6">{{$t("workers.invalidshares")}}：{{target.invalidshares}}</el-col>
-        <el-col :span="6">{{$t("workers.sentrewards")}}：{{target.sentrewards}} UFO</el-col>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.avgpower")}}</div>
+          <div class="top-value">{{target.avgpower}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.invalidshares")}}</div>
+          <div class="top-value">{{target.invalidshares}}</div>
+        </el-col>
+        <div class = "vertical-line"></div>
+        <el-col :span="6">
+          <div class="top-label">{{$t("workers.sentrewards")}}</div>
+          <div class="top-value">{{target.sentrewards}} UFO</div>
+        </el-col>
       </el-row>
     </div>
       <div class="line">
@@ -33,6 +66,7 @@ export default {
     return {
       value: '',
       target: {
+        workercount: 0,
         realtimepower: 0,
         validshares: 0,
         totalrewards: 0,
@@ -105,7 +139,11 @@ export default {
           let lineOptions = {
             title: {
               text: that.$t('workers.powerline'),
-              left: '4%'
+              textStyle: {
+                fontSize: 24,
+                fontWeight: 600,
+                fontFamily: 'Calibri'
+              }
             },
             tooltip: {
               trigger: 'axis',
@@ -155,7 +193,11 @@ export default {
           let lineOptions2 = {
             title: {
               text: that.$t('workers.rewardline'),
-              left: '4%'
+              textStyle: {
+                fontSize: 24,
+                fontWeight: 600,
+                fontFamily: 'Calibri'
+              }
             },
             tooltip: {
               trigger: 'axis',
@@ -233,34 +275,91 @@ export default {
 }
 </script>
 <style scoped>
+.workers-homepage {
+  text-decoration: none;
+}
+.workers-workers {
+  text-decoration: none;
+}
+.workers-userguide {
+  text-decoration: none;
+}
 .workers {
   width: 1200px;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgba(248,249,250,1);
   position: relative;
   height: auto;
-  padding: 50px 20px 100px;
+  padding: 10px 20px 100px;
+}
+.workers-title {
+  width:68%;
+  text-align:left;
+  font-size:30px;
+  font-weight:600;
+  font-family: "Calibri";
+  color:rgba(30,32,34,1);
+  line-height:25px;
+  float:left;
 }
 .search {
   width: 60%;
-  margin: 0 auto;
+  margin: 60px auto;
+}
+.input-with-select >>> .el-input__inner {
+  border-top-left-radius:22px;
+  border-bottom-left-radius:22px;
+}
+.vertical-line {
+  float:left;
+  margin-top: 5px;
+  width: 1px;
+  height: 70px;
+  background: rgba(231,234,243,1);
+}
+.horizontal-line {
+  height:1px;
+  border:none;
+  background: rgba(231,234,243,1);
 }
 .workers-top {
-  margin-top: 20px;
+  padding-top: 5px;
+  width:1200px;
+  height:180px;
+  /*background:rgba(248,249,250,1);*/
+  border-radius:4px;
+  border:1px solid rgba(231,234,243,1);
+  background-color: #ffffff;
+}
+.top-label {
+  font-size:16px;
+  font-weight:300;
+  font-family: "Calibri Light";
+  color:rgba(119,131,143,1);
+}
+.top-value {
+  font-size:20px;
+  font-weight:600;
+  font-family: "Calibri";
+  color:rgba(30,32,34,1);
 }
 .list, .line {
   margin-top: 50px;
+  border:1px solid rgba(231,234,243,1);
 }
 .el-col {
-  line-height: 50px;
+  padding-top: 15px;
+  line-height: 25px;
   text-align: left;
 }
 #lineCharts {
   width: 100%;
   height: 400px;
+  background-color: #ffffff;
 }
 #lineCharts2 {
   width: 100%;
   height: 400px;
+  background-color: #ffffff;
 }
 </style>
