@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const WebHome = r => require.ensure([], () => r(require('@/pages/WebHome')), 'WebHome')
+const WebHome = r => require.ensure([], () => r(require('@/pages/Webhome')), 'WebHome')
 const Home = r => require.ensure([], () => r(require('@/pages/home/Home')), 'Home')
 const Workers = r => require.ensure([], () => r(require('@/pages/home/Workers')), 'Workers')
 const Guide = r => require.ensure([], () => r(require('@/pages/home/Guide')), 'Guide')
