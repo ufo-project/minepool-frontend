@@ -65,11 +65,11 @@
     <div class="list">
       <div class="title">{{$t("home.latestblocks")}}</div>
       <el-table :data="tableData" :cell-style="tableStyle" :header-cell-style="tableHeaderStyle" style="width: 100%">
-        <el-table-column prop="blockheight" :label="$t('home.blockheight')" width="160" ></el-table-column>
-        <el-table-column prop="miner" :label="$t('home.blockminer')" width="160">
+        <el-table-column prop="blockheight" :label="$t('home.blockheight')" width="120" ></el-table-column>
+        <el-table-column prop="miner" :label="$t('home.blockminer')" width="120">
         </el-table-column>
-        <el-table-column prop="blockreward" :label="$t('home.blockreward')" width="160"></el-table-column>
-        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="160">
+        <el-table-column prop="blockreward" :label="$t('home.blockreward')" width="120"></el-table-column>
+        <el-table-column prop="blocktime" :label="$t('home.blocktime')" width="200">
           <template slot-scope="scope">
             <span v-if="scope.row.blocktime<60">
               &lt;1Minute
