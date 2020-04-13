@@ -24,7 +24,7 @@
         <div class = "vertical-line"></div>
         <el-col :span="6">
           <div class="top-label">{{$t("home.feerate")}}</div>
-          <div class="top-value">5%</div>
+          <div class="top-value">3%</div>
         </el-col>
       </el-row>
       <hr class = "horizontal-line"/>
