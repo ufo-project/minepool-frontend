@@ -76,7 +76,7 @@
             </span>
             <span v-else>
               <!-- <span v-if="scope.row.hour">{{scope.row.hour}}{{$t("home.hour")}}</span> {{scope.row.minute}}{{$t("home.beforem")}} -->
-              <span v-if="scope.row.day">{{scope.row.day}}{{$t("home.day")}} {{scope.row.hour}}{{$t("home.hour")}}</span> {{scope.row.minute}}{{$t("home.beforem")}}
+              <span v-if="scope.row.day">{{scope.row.day}}{{$t("home.day")}}</span> <span v-if="scope.row.hour">{{scope.row.hour}}{{$t("home.hour")}}</span>{{scope.row.minute}}{{$t("home.beforem")}}
             </span>
           </template>
         </el-table-column>
