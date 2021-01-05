@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "echarts": "^4.6.0",
     "element-react": "^1.4.34",
     "element-theme-default": "^1.4.13",
